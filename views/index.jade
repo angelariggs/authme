@@ -2,10 +2,7 @@ extends layout
 
 block content
   h1 Hello!
-  if error
-    h3= error
-  else
-    p You are not logged in. Would you like to be?
+  p You are not logged in. Would you like to be?
     div
       form(method="post" action="/login")
         h2 Log into an existing account
