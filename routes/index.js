@@ -38,61 +38,69 @@ It has some bugs:
   without complaint.
 */
 router.post('/register', function(request, response) {
-  /*
-  request.body is an object containing the data submitted from the form.
-  Since we're in a POST handler, we use request.body. A GET handler would use
-  request.params. The parameter names correspond to the "name" attributes of
-  the form fields.
+/*
+request.body is an object containing the data submitted from the form.
+Since we're in a POST handler, we use request.body. A GET handler would use
+request.params. The parameter names correspond to the "name" attributes of
+the form fields.
 
-  app.get('database') returns the knex object that was set up in app.js. app.get
-  is not the same as router.get; it's more like object attributes. You could
-  think of it like it's saying app.database, but express apps use .get and .set
-  instead of attributes to avoid conflicts with the attributes that express apps
-  already have.
-  */
+app.get('database') returns the knex object that was set up in app.js. app.get
+is not the same as router.get; it's more like object attributes. You could
+think of it like it's saying app.database, but express apps use .get and .set
+instead of attributes to avoid conflicts with the attributes that express apps
+already have.
+*/
   var username = request.body.username,
       password = request.body.password,
       password_confirm = request.body.password_confirm,
       database = app.get('database');
 
-  if (password === password_confirm) {
-    /*
-    This will insert a new record into the users table. The insert
-    function takes an object whose keys are column names and whose values
-    are the contents of the record.
+      database('users').where({'username': username}).then(function(array) {
+        if (array.length > 0) {
+          response.render('mistake', {
+            error: "Username is already taken; please try another name.",
+            text: "Please click here to return to the login page: "
+          })
+        } else {
+          if (password === password_confirm) {
+/*
+This will insert a new record into the users table. The insert
+function takes an object whose keys are column names and whose values
+are the contents of the record.
 
-    This uses a "promise" interface. It's similar to the callbacks we've
-    worked with before. insert({}).then(function() {...}) is very similar
-    to insert({}, function() {...});
-    */
-    database('users').insert({
-      username: username,
-      password: password,
-    }).then(function() {
-      /*
-      Here we set a "username" cookie on the response. This is the cookie
-      that the GET handler above will look at to determine if the user is
-      logged in.
+This uses a "promise" interface. It's similar to the callbacks we've
+worked with before. insert({}).then(function() {...}) is very similar
+to insert({}, function() {...});
+*/
+            database('users').insert({
+              username: username,
+              password: password,
+            })
+            .then(function() {
+/*
+Here we set a "username" cookie on the response. This is the cookie
+that the GET handler above will look at to determine if the user is
+logged in.
 
-      Then we redirect the user to the root path, which will cause their
-      browser to send another request that hits that GET handler.
-      */
-      response.cookie('username', username)
-      response.redirect('/');
-    });
-  } else {
-    /*
-    The user mistyped either their password or the confirmation, or both.
-    Render the index page again, with an error message telling them what's
-    wrong.
-    */
-    response.render('index', {
-      title: 'Authorize Me!',
-      user: null,
-      error: "Password didn't match confirmation"
-    });
-  }
-});
+Then we redirect the user to the root path, which will cause their
+browser to send another request that hits that GET handler.
+*/
+              response.cookie('username', username)
+              response.redirect('/');
+            });
+          } else {
+/*
+The user mistyped either their password or the confirmation, or both.
+Render the index page again, with an error message telling them what's
+wrong.
+*/
+              response.render('mistake', {
+                error: "Password confirmation did not match."
+              });//end of render pwd no match
+          }//end of password matching 'else' statement 
+        }//end of username query 'else' statement
+      }); //end of initial database query
+}); //end of route
 
 /*
 This is the request handler for logging in as an existing user. It will check
