@@ -135,10 +135,9 @@ router.post('/login', function(request, response) {
     page again, with an error message telling the user what's going on.
     */
     if (records.length === 0) {
-        response.render('index', {
-          title: 'Authorize Me!',
-          user: null,
-          error: "No such user"
+        response.render('mistake', {
+          error: "No such user",
+          text: "Please click here to return to the login page: "
         });
     } else {
       var user = records[0];
@@ -156,10 +155,11 @@ router.post('/login', function(request, response) {
         There's a user by that name, but the password was wrong. Re-render the
         index page, with an error telling the user what happened.
         */
-        response.render('index', {
+        response.render('mistake', {
           title: 'Authorize Me!',
           user: null,
-          error: "Password incorrect"
+          error: "Password incorrect",
+          text: "Please click here to return to the login page: "
         });
       }
     }
