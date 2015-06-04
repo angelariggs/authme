@@ -1,31 +1,32 @@
 extends layout
 
 block content
-  h1.indexh1 Hello! Welcome to Twit (tm)!
+  h1 Hello! Welcome to Twit (tm)!
   p Please log in, or create a new account.
     div
       form(method="post" action="/login")
-        h2 Log into an existing account
-        div
-          label Username:
-            input(type="text" name="username" placeholder="username")
-        div
-          label Password:
-            input(type="password" name="password")
-        div
-          input(type="submit" value="Let me in!")
+        h2 // Log into an existing account
+          div
+            label Username: 
+              input(type="text" name="username" placeholder="username")
+          div
+            label Password: 
+              input(type="password" name="password")
+          div
+            input.submit(type="submit" value="Login!")
+
 
     div
       form(method="post" action="/register")
-        h2 Register a new account
-        div
-          label Username:
-            input(type="text" name="username" placeholder="username")
-        div
-          label Password:
-            input(type="password" name="password")
-        div
-          label Confirm Password:
-            input(type="password" name="password_confirm")
-        div
-          input(type="submit" value="Pleased to meet you!")
+        h2 // Register a new account
+          div
+            label Username: 
+              input(type="text" name="username" placeholder="username")
+          div
+            label Password:
+              input(type="password" name="password")
+          div
+            label Confirm Password: 
+              input(type="password" name="password_confirm")
+          div
+            input.submit(type="submit" value="Register account")
