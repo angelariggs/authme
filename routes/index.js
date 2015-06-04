@@ -14,14 +14,15 @@ router.get('/', function(request, response, next) {
   */
   if (request.cookies.username) {
     username = request.cookies.username;
+    response.render('logged-in', { title: 'Authorize Me!', username: username });
   } else {
     username = null;
+    response.render('index', { title: 'Authorize Me!', username: username });
   }
   /*
   render the index page. The username variable will be either null
   or a string indicating the username.
   */
-  response.render('index', { title: 'Authorize Me!', username: username });
 });
 
 /*
