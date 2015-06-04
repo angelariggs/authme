@@ -2,4 +2,9 @@ extends layout
 
 block content
 
-  h1 Welcome, #{ username }. You are currently logged in!
+  h1 Welcome, #{ username }.
+
+  div 
+    form
+      label Watcha thinkin' bout?:
+        input(type="text" name="username" placeholder="username")
