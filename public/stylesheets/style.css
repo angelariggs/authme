@@ -1,8 +1,74 @@
+/*
+22px / 48px for headline font-family: 'Stint Ultra Expanded', cursive;
+68px for headline font-family: 'Ultra', serif;
+15px body text: font-family: 'Slabo 13px', serif;  
+*/
+
+/********************
+Site-wide styling
+********************/
+
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: #F3FFE2 ;
 }
 
-a {
-  color: #00B7FF;
+h1 {
+  font-family: 'Stint Ultra Expanded', cursive;
+  font-size: 68px;
+  color: #EB7F00;
+}
+
+body p {
+  font-family: 'Stint Ultra Expanded', cursive;
+  color: #225378;
+}
+
+/********************
+Index.jade
+********************/
+
+body h2 {
+  font-family: 'Stint Ultra Expanded', cursive;
+  color: #1695A3;
+}
+
+body form h2 div label {
+  font-family: 'Slabo 13px', serif;
+  color: #225378;
+  font-size: 17px
+}
+
+body form h2 div input {
+  font-family: 'Slabo 13px', serif;
+  color: #225378;
+  font-size: 13px
+}
+
+body form h2 input.submit {
+  font-family: 'Slabo 13px', serif;
+  color: #225378;
+  font-size: 17px
+}
+
+/********************
+Logged-in.jade
+********************/
+
+body div form label {
+  font-family: 'Slabo 13px', serif;
+  color: #225378;
+  font-size: 17px
+}
+
+body div form input {
+  font-family: 'Slabo 13px', serif;
+  color: #225378;
+  font-size: 13px
+}
+
+body form input.submit {
+  font-family: 'Slabo 13px', serif;
+  color: #225378;
+  font-size: 17px
 }
