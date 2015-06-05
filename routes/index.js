@@ -14,10 +14,16 @@ router.get('/', function(request, response, next) {
   */
   if (request.cookies.username) {
     var username = request.cookies.username;
+    var userID = request.body.userID;
     var database = app.get('database');
 
-    database('tweets').select()
+    // request to only display the tweet column from the tweets table, of the user (username) that is logged in.
+    database('tweets')
+    .join('users', 'tweets.userID', '=', 'users.id')
+    .select('tweet', 'avatar', 'timestamp', 'username')
+    .where('username', username)
     .then(function(result) {
+      console.log(result);
       response.render('logged-in', {username: username, tweets: result});
     })//closes then function result
     //retrieve 'select' all tweets from the tweets table, of this user
@@ -179,7 +185,8 @@ router.post('/twit', function(request, response) {
   var userID = request.body.userID,
       username = request.cookies.username,
       twit = request.body.twit,
-      timestamp = request.body.timestamp,
+      // timestamp = request.body.timestamp,
+      timestamp = new Date(Date.now()),
       database = app.get('database');
 //makes a req at user table, to convert username to userID
   database('users').where({'username': username})
