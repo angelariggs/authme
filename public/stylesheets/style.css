@@ -91,7 +91,7 @@ body div form label {
 body div form input {
   font-family: 'Slabo 13px', serif;
   color: #225378;
-  font-size: 13px
+  font-size: 13px;
   padding: 20px;
 }
 
@@ -112,6 +112,10 @@ body div form div label.textbox input {
   font-size: 15px;
 }
 
+.tired {
+  margin-left: 400px;
+}
+
 .avatar {
   display: inline-block;
   max-width: 50px;
@@ -122,10 +126,11 @@ body div form div label.textbox input {
 
 .tweetBlock {
   border: 3px solid #EB7F00;
-  border-radius: 3px;
+  border-radius: 10px;
   margin: 10px 5px;
-  height: 60px;
+  height: 80px;
   padding: 5px;
+  margin: 25px 0;
 }
 
 .text {
@@ -140,7 +145,8 @@ body div div.tweetBlock div.tweetContent span.tweetText {
 }
 
 .tweetContent {
-  padding: 20px;
+  padding-top: 10px;
+  padding-left: 20px;
   font-family: 'Slabo 13px', serif;
 }
 

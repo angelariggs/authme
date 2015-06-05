@@ -8,16 +8,26 @@ block content
       div
         label.textbox Express yo'self!  
           input(type="text" name="twit" placeholder="Type a twit!")
-          
           label.submit
             input(type="submit" value="Say it!")
+            form(method='post' action='/logout')
+              label.tired Tired of talking?  
+                input(type='submit', name='logout', value="Logout")
 
     each twit in tweets
       div.tweetBlock
         img.avatar(src= twit.avatar)
         div.tweetContent
           span.username= username
-          span.tweetText= twit.tweet  
-          span= twit.userID 
-            div.timestamp 
-              span= twit.timestamp
+            div
+              span.tweetText= twit.tweet  
+              span= twit.userID 
+                div.timestamp 
+                  span= twit.timestamp
+
+
+  form(method="post", action="/displayTweet")
+    label See other users
+      input(type="text", name="otherTwit", placeholder="type here")
+      label
+        input(type="submit", value="submit")
