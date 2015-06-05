@@ -2,17 +2,22 @@ extends layout
 
 block content
   if username
-    h1 Welcome, #{ username }.
+    h1 Welcome, #{ username }!
   div 
     form(method="post" action="/twit")
       div
-        label What's on yo' mind?  
+        label.textbox Express yo'self!  
           input(type="text" name="twit" placeholder="Type a twit!")
-      div
-        input.submit(type="submit" value="Say it!")
+          
+          label.submit
+            input(type="submit" value="Say it!")
 
     each twit in tweets
-      div
-        img(src="http://media.giphy.com/media/14wcKRPZygbpio/giphy.gif")
-        span= twit.tweet
-        span= twit.userID
+      div.tweetBlock
+        img.avatar(src= twit.avatar)
+        div.tweetContent
+          span.username= username
+          span.tweetText= twit.tweet  
+          span= twit.userID 
+            div.timestamp 
+              span= twit.timestamp
