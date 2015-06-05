@@ -1,11 +1,10 @@
 extends layout
 
 block content
-
-  h1 Welcome, #{ username }.
-
+  if username
+    h1 Welcome, #{ username }.
   div 
-    form
+    form(method="post" action="/twit")
       div
         label What's on yo' mind?  
           input(type="text" name="twit" placeholder="Type a twit!")

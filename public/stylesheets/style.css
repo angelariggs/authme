@@ -2,6 +2,12 @@
 22px / 48px for headline font-family: 'Stint Ultra Expanded', cursive;
 68px for headline font-family: 'Ultra', serif;
 15px body text: font-family: 'Slabo 13px', serif;  
+
+dark blue: #225378;
+med blue: #1695A3;
+light blue: #ACF0F2;
+greenish: #F3FFE2;
+orange: #EB7F00;
 */
 
 /********************
@@ -9,7 +15,7 @@ Site-wide styling
 ********************/
 
 body {
-  padding: 50px;
+  padding: 40px;
   background: #F3FFE2 ;
 }
 
@@ -22,11 +28,16 @@ h1 {
 body p {
   font-family: 'Stint Ultra Expanded', cursive;
   color: #225378;
+  font-size: 20px;
 }
 
 /********************
 Index.jade
 ********************/
+.hello {
+  font-family: 'Ultra', serif;
+  font-size: 68px;
+}
 
 body h2 {
   font-family: 'Stint Ultra Expanded', cursive;

@@ -95,7 +95,8 @@ Render the index page again, with an error message telling them what's
 wrong.
 */
               response.render('mistake', {
-                error: "Password confirmation did not match."
+                error: "Password confirmation did not match.",
+                text: "Please click here to return to the login page: "
               });//end of render pwd no match
           }//end of password matching 'else' statement 
         }//end of username query 'else' statement
@@ -156,8 +157,6 @@ router.post('/login', function(request, response) {
         index page, with an error telling the user what happened.
         */
         response.render('mistake', {
-          title: 'Authorize Me!',
-          user: null,
           error: "Password incorrect",
           text: "Please click here to return to the login page: "
         });
@@ -165,5 +164,32 @@ router.post('/login', function(request, response) {
     }
   });
 });
+
+/*route for storing/posting tweets*/
+//look at the loop in the my first blog template
+
+// router.post('/twit', function(request, response) {
+//   var userID = request.body.userID,
+//       twit = request.body.twit,
+//       timestamp = request.body.timestamp,
+//       database = app.get('database');
+
+//   database('users').where({'username': username}).then(function(records) {
+//     //give me the id
+//     var userID = records[0].id 
+
+//     database('tweets').insert({
+//       userID: userID,
+//       tweet: twit,
+//       timestamp: timestamp
+//     })
+//     .then(function() {
+
+//     }
+
+//   })//closes database request
+
+
+// }); //closes initial route
 
 module.exports = router;
