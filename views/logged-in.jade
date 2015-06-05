@@ -14,5 +14,5 @@ block content
     each twit in tweets
       div
         img(src="http://media.giphy.com/media/14wcKRPZygbpio/giphy.gif")
-        span
-          p
+        span= twit.tweet
+        span= twit.userID
