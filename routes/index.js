@@ -23,7 +23,7 @@ router.get('/', function(request, response, next) {
     .select('tweet', 'avatar', 'timestamp', 'username')
     .where('username', username)
     .then(function(result) {
-      console.log(result);
+      result.reverse()
       response.render('logged-in', {username: username, tweets: result});
     })//closes then function result
     //retrieve 'select' all tweets from the tweets table, of this user
@@ -35,6 +35,28 @@ router.get('/', function(request, response, next) {
   render the index page. The username variable will be either null
   or a string indicating the username.
   */
+});
+
+//This route allows you to log out
+router.post('/logout', function(request,response){
+ var username = request.cookies.username;
+ response.clearCookie("username")
+ response.redirect('/');
+});
+
+router.post('/displayTweet', function(request, response) {
+  var username = request.body.otherTwit
+  var database = app.get('database');
+
+  console.log(username)
+  database('tweets')
+    .join('users', 'tweets.userID', '=', 'users.id')
+    .select('tweet', 'avatar', 'timestamp', 'username')
+    .where('username', username)
+    .then(function(result) {
+      result.reverse()
+      response.render('logged-in', {username: username, tweets: result});
+    })
 });
 
 /*
