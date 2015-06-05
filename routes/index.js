@@ -175,6 +175,7 @@ router.post('/login', function(request, response) {
 // look at the loop in the my first blog template
 
 router.post('/twit', function(request, response) {
+  //request.body refers to the vars in the form
   var userID = request.body.userID,
       username = request.cookies.username,
       twit = request.body.twit,
