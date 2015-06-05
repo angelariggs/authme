@@ -13,11 +13,17 @@ router.get('/', function(request, response, next) {
   "username," assume it contains their username
   */
   if (request.cookies.username) {
-    username = request.cookies.username;
-    response.render('logged-in', { title: 'Authorize Me!', username: username });
+    var username = request.cookies.username;
+    var database = app.get('database');
+
+    database('tweets').select()
+    .then(function(result) {
+      response.render('logged-in', {username: username, tweets: result});
+    })//closes then function result
+    //retrieve 'select' all tweets from the tweets table, of this user
   } else {
     username = null;
-    response.render('index', { title: 'Authorize Me!', username: username });
+    response.render('index', { username: username });
   }
   /*
   render the index page. The username variable will be either null
@@ -170,26 +176,24 @@ router.post('/login', function(request, response) {
 
 router.post('/twit', function(request, response) {
   var userID = request.body.userID,
+      username = request.cookies.username,
       twit = request.body.twit,
       timestamp = request.body.timestamp,
       database = app.get('database');
-
+//makes a req at user table, to convert username to userID
   database('users').where({'username': username})
   .then(function(records) {
     var userID = records[0].id 
-
-    if (records.length > 0) {
-      response.redirect('logged-in');
-    }//closes if loop
-
+//inserts vars below into tweets table
     database('tweets').insert({
       userID: userID,
       tweet: twit,
       timestamp: timestamp
     })//closes insert
-    .then(function() {
-      response.cookie('username', username)
-      response.redirect('logged-in')
+//this renders the logged-in jade page w/the tweet displayed
+    .then(function(result) {
+      response.cookie('username', username);
+      response.redirect('/')
     })//closes then function after insert
   })//closes then function records
 })//closes router.post twit
