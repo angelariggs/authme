@@ -166,30 +166,32 @@ router.post('/login', function(request, response) {
 });
 
 /*route for storing/posting tweets*/
-//look at the loop in the my first blog template
+// look at the loop in the my first blog template
 
-// router.post('/twit', function(request, response) {
-//   var userID = request.body.userID,
-//       twit = request.body.twit,
-//       timestamp = request.body.timestamp,
-//       database = app.get('database');
+router.post('/twit', function(request, response) {
+  var userID = request.body.userID,
+      twit = request.body.twit,
+      timestamp = request.body.timestamp,
+      database = app.get('database');
 
-//   database('users').where({'username': username}).then(function(records) {
-//     //give me the id
-//     var userID = records[0].id 
+  database('users').where({'username': username})
+  .then(function(records) {
+    var userID = records[0].id 
 
-//     database('tweets').insert({
-//       userID: userID,
-//       tweet: twit,
-//       timestamp: timestamp
-//     })
-//     .then(function() {
+    if (records.length > 0) {
+      response.redirect('logged-in');
+    }//closes if loop
 
-//     }
-
-//   })//closes database request
-
-
-// }); //closes initial route
+    database('tweets').insert({
+      userID: userID,
+      tweet: twit,
+      timestamp: timestamp
+    })//closes insert
+    .then(function() {
+      response.cookie('username', username)
+      response.redirect('logged-in')
+    })//closes then function after insert
+  })//closes then function records
+})//closes router.post twit
 
 module.exports = router;

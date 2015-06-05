@@ -4,9 +4,9 @@ block content
   h1.hello Hello! 
   h1 Welcome to Twit&copy;
   p Please log in, or create a new account.
-    div
+    div.login
       form(method="post" action="/login")
-        h2 // Log into an existing account
+        h2 Log into an existing account
           div
             label Username: 
               input(type="text" name="username" placeholder="username")
@@ -17,9 +17,9 @@ block content
             input.submit(type="submit" value="Login!")
 
 
-    div
+    div.register
       form(method="post" action="/register")
-        h2 // Register a new account
+        h2 Register a new account
           div
             label Username: 
               input(type="text" name="username" placeholder="username")

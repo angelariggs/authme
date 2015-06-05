@@ -62,6 +62,22 @@ body form h2 input.submit {
   font-size: 17px
 }
 
+.login {
+  float: left;
+  margin-right: 30px;
+  border: 3px solid #EB7F00;
+  padding: 20px 25px;
+  margin-top: 20px;
+}
+
+.register {
+  float: right;
+  margin-right: 100px;
+  border: 3px solid #EB7F00;
+  padding: 20px 25px;
+  margin-top: 20px;
+}
+
 /********************
 Logged-in.jade
 ********************/
