@@ -21,3 +21,5 @@ form(method='post' action='/logout')
 
 
    usernames are case sensitive
+
+   'logout' adds a blank tweet

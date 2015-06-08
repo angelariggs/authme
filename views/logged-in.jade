@@ -1,33 +1,36 @@
 extends layout
 
 block content
-  if username
-    h1 Welcome, #{ username }!
-  div 
+  div.nav
+    div.logout
+      form(method='post' action='/logout')
+        label.tired Tired of talking?  
+          input(type='submit', name='logout', value="Logout!")
+      div.others
+        form(method="post", action="/displayTweet")
+          label See other users:  
+            input(type="text", name="otherTwit", placeholder="Enter username")
+            label
+              input(type="submit", value="Submit")
+    div.welcome
+      if username
+        h2 Welcome, #{ username }!
+  div
     form(method="post" action="/twit")
-      div
-        label.textbox Express yo'self!  
-          input(type="text" name="twit" placeholder="Type a twit!")
-          label.submit
-            input(type="submit" value="Say it!")
-            form(method='post' action='/logout')
-              label.tired Tired of talking?  
-                input.logout(type='submit', name='logout', value="Logout!")
+      div.makeTweet
+        h2
+          label Express yo'self!  
+            input(type="text" name="twit" placeholder="Type a twit!")
+            label.submit
+              input(type="submit" value="Say it!")
 
     each twit in tweets
       div.tweetBlock
         img.avatar(src= twit.avatar)
-        div.tweetContent
-          span.username= username
+        div.username
+          span= username
             div
               span.tweetText= twit.tweet  
               span= twit.userID 
-                div.timestamp 
+                div.timestamp
                   span= twit.timestamp
-
-
-  form(method="post", action="/displayTweet")
-    label See other users
-      input(type="text", name="otherTwit", placeholder="type here")
-      label
-        input(type="submit", value="submit")

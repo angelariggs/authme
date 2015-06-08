@@ -40,6 +40,8 @@ router.get('/', function(request, response, next) {
 //This route allows you to log out
 router.post('/logout', function(request,response){
  var username = request.cookies.username;
+ var database = app.get('database');
+ 
  response.clearCookie("username")
  response.redirect('/');
 });

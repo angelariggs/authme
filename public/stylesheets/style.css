@@ -15,8 +15,9 @@ Site-wide styling
 ********************/
 
 body {
-  padding: 40px;
+  /*padding: 40px;*/
   background: #F3FFE2 ;
+  margin-top: 0px;
 }
 
 h1 {
@@ -34,9 +35,14 @@ body p {
 /********************
 Index.jade
 ********************/
-.hello {
+body h1.hello {
   font-family: 'Ultra', serif;
   font-size: 68px;
+  margin-left: 30px;
+}
+
+body h1, p {
+  margin-left: 30px;
 }
 
 body h2 {
@@ -68,6 +74,7 @@ body form h2 input.submit {
   border: 3px solid #EB7F00;
   padding: 20px 25px;
   margin-top: 20px;
+  margin-left: 30px;
 }
 
 .register {
@@ -81,67 +88,82 @@ body form h2 input.submit {
 /********************
 Logged-in.jade
 ********************/
-
-body div form label {
-  font-family: 'Slabo 13px', serif;
-  color: #225378;
-  font-size: 17px
+body {
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
-body div form input {
-  font-family: 'Slabo 13px', serif;
-  color: #225378;
-  font-size: 13px;
-  padding: 20px;
+.nav {
+  background-color: #ACF0F2;
+  top: 0;
+  padding: 20px 20px;
+  max-width: 100%;
+  margin-left: 0px;
+  border-bottom: 1.5px solid #225378;
 }
 
-body form input.submit {
-  font-family: 'Slabo 13px', serif;
-  color: #225378;
-  font-size: 17px
-}
-
-body div form div label.textbox {
-  font-size: 25px;
-}
-
-body div form div label.textbox input {
-  margin: 20px;
-  font-family: 'Slabo 13px', serif;
-  padding: 10px;
-  font-size: 15px;
-}
-
-.tired {
-  margin-left: 400px;
-}
-
-.avatar {
+.logout {
+  float: right;
   display: inline-block;
-  max-width: 50px;
-  max-height: 50px;
-  margin: 10px;
-  float: left;
+  font-family: 'Stint Ultra Expanded', cursive;
+  color: #225378;
+  margin-bottom: 20px;
+}
+
+.others {
+  float: right;
+  display: inline-block;
+  font-family: 'Stint Ultra Expanded', cursive;
+  color: #225378;
+  margin-top: 20px;
+}
+
+.welcome h2 {
+  max-width: 60%;
+  color: #225378;
+}
+
+.makeTweet {
+  font-family: 'Stint Ultra Expanded', cursive;
+  color: #225378;
+  margin-bottom: 40px;
+}
+
+.makeTweet input {
+  padding: 10px;
+  margin: 0 10px;
+}
+
+body div form div.makeTweet {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.submit input {
+  padding: 20px;
+  font-family: 'Slabo 13px', serif;
 }
 
 .tweetBlock {
   border: 3px solid #EB7F00;
   border-radius: 10px;
-  margin: 10px 5px;
   height: 80px;
   padding: 5px;
   margin: 25px 0;
 }
 
-.text {
-  float: left;
-  vertical-align: middle;
-  text-align: center;
-  color: #1695A3;
+body div div.tweetBlock {
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
-body div div.tweetBlock div.tweetContent span.tweetText {
-  color: #1695A3;
+.avatar {
+  display: inline-block;
+  max-width: 70px;
+  max-height: 70px;
+  margin: 10px;
+  float: left;
+  border-radius: 100px;
 }
 
 .tweetContent {
@@ -150,11 +172,27 @@ body div div.tweetBlock div.tweetContent span.tweetText {
   font-family: 'Slabo 13px', serif;
 }
 
-body div div.tweetBlock div.tweetContent span.username {
-  color: #ACF0F2;
+.username {
+  font-family: 'Slabo 13px', serif;
+  padding-top: 8px;
 }
 
+.username span {
+  color: #225378;
+}
 
-body div div.tweetBlock div.tweetContent span div.timestamp span {
+.tweetText {
+  font-family: 'Slabo 13px', serif;
+}
+
+span.tweetText {
+  color: #1695A3;
+}
+
+.timestamp {
+  font-family: 'Slabo 13px', serif;
+}
+
+.timestamp span {
   color: #225378;
 }
