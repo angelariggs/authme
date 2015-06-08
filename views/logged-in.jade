@@ -12,7 +12,7 @@ block content
             input(type="submit" value="Say it!")
             form(method='post' action='/logout')
               label.tired Tired of talking?  
-                input(type='submit', name='logout', value="Logout")
+                input.logout(type='submit', name='logout', value="Logout!")
 
     each twit in tweets
       div.tweetBlock
