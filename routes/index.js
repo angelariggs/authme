@@ -3,6 +3,9 @@ var router = express.Router();
 var app = require('../app');
 var redis = require('redis');
 var cache = redis.createClient();
+var uuid = require('node-uuid');
+var nodemailer = require('nodemailer');
+var sendEmail = require('./verify')
 
 cache.del("tweets");
 
@@ -104,44 +107,35 @@ think of it like it's saying app.database, but express apps use .get and .set
 instead of attributes to avoid conflicts with the attributes that express apps
 already have.
 */
+
   var username = request.body.username,
       password = request.body.password,
       password_confirm = request.body.password_confirm,
-      database = app.get('database');
+      email = request.body.email,
+      database = app.get('database'),
+      id;
 
       database('users').where({'username': username}).then(function(array) {
         if (array.length > 0) {
           response.render('mistake', {
             error: "Username is already taken; please try another name.",
-            text: "Please click here to return to the login page: "
-          })
+            text: "Please click here to return to the registration page: "});
         } else {
           if (password === password_confirm) {
-/*
-This will insert a new record into the users table. The insert
-function takes an object whose keys are column names and whose values
-are the contents of the record.
-
-This uses a "promise" interface. It's similar to the callbacks we've
-worked with before. insert({}).then(function() {...}) is very similar
-to insert({}, function() {...});
-*/
-            database('users').insert({
-              username: username,
-              password: password,
-            })
-            .then(function() {
-/*
-Here we set a "username" cookie on the response. This is the cookie
-that the GET handler above will look at to determine if the user is
-logged in.
-
-Then we redirect the user to the root path, which will cause their
-browser to send another request that hits that GET handler.
-*/
-              response.cookie('username', username)
-              response.redirect('/');
-            });
+          
+            // database('users').where({'email': email}).then(function(emailArray) {
+            //   if(emailArray.length > 0) {
+            //     response.render('mistake', {
+            //       error: "Email address has already been used. Please use a unique email address.",
+            //       text: "Please click here to return to the registration page: "});
+            //   } else {
+              var nonce = uuid.v4();
+              var mailBody = sendEmail(nonce);
+              var userData = {'username': username, 'password': password, 'email': email};
+                redisClient.set(nonce, JSON.stringify(userData), function() {
+                  response.render('verification',
+                    {text: "Thank you for registering with Twit! Please check your email for a verification link."});
+                  }//closes redisClient.set
           } else {
 /*
 The user mistyped either their password or the confirmation, or both.
@@ -153,9 +147,51 @@ wrong.
                 text: "Please click here to return to the login page: "
               });//end of render pwd no match
           }//end of password matching 'else' statement 
+              //}//closes else
+            //});//closes db check for email
         }//end of username query 'else' statement
       }); //end of initial database query
-}); //end of route
+}); //end of registration route
+
+/*
+This will insert a new record into the users table. The insert
+function takes an object whose keys are column names and whose values
+are the contents of the record.
+
+This uses a "promise" interface. It's similar to the callbacks we've
+worked with before. insert({}).then(function() {...}) is very similar
+to insert({}, function() {...});
+*/
+router.get('/verify', function(request, response) {
+
+  database('users').insert({
+    username: username,
+    password: password,
+  })
+  .then(function() {
+    response.cookie('username', username)
+    response.redirect('/');
+  });
+
+})//closes router.get
+      
+
+router.get('/verify_email/:nonce', function(request, response) {
+  redisClient.get(request.params.nonce, function(userId) {
+    redisClient.del(request.params.nonce, function() {
+      if (userId) {
+        new User({id: userId}).fetch(function(user) {
+            user.set('verifiedAt', new Date().toISOString());
+              // now log the user in, etc.
+            })//closes User.fetch
+      } else {
+          response.render('mistake',
+            {error: "That verification code is invalid!"});
+        }//closes else
+    })//closes redisClient.del;
+  })//closes redisClient.get;
+})//closes router.get;
+
 
 /*
 This is the request handler for logging in as an existing user. It will check
@@ -177,7 +213,6 @@ router.post('/login', function(request, response) {
   var username = request.body.username,
       password = request.body.password,
       database = app.get('database');
-
 
   /*
   This is where we try to find the user for logging them in. We look them up
