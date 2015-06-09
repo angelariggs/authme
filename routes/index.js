@@ -1,41 +1,59 @@
 var express = require('express');
 var router = express.Router();
-var app = require('../app')
+var app = require('../app');
+var redis = require('redis');
+var cache = redis.createClient();
+
+cache.del("tweets");
 
 /*
 This is a request handler for loading the main page. It will check to see if
 a user is logged in, and render the index page either way.
 */
-router.get('/', function(request, response, next) {
-  var username;
-  /*
-  Check to see if a user is logged in. If they have a cookie called
-  "username," assume it contains their username
-  */
-  if (request.cookies.username) {
-    var username = request.cookies.username;
-    var userID = request.body.userID;
-    var database = app.get('database');
-
-    // request to only display the tweet column from the tweets table, of the user (username) that is logged in.
-    database('tweets')
-    .join('users', 'tweets.userID', '=', 'users.id')
-    .select('tweet', 'avatar', 'timestamp', 'username')
-    .where('username', username)
-    .then(function(result) {
-      result.reverse()
-      response.render('logged-in', {username: username, tweets: result});
-    })//closes then function result
-    //retrieve 'select' all tweets from the tweets table, of this user
-  } else {
-    username = null;
-    response.render('index', { username: username });
+router.get('/', function(request, response) {
+  if (!request.cookies.username) {
+    response.render('index', { username: null });
+    return;
   }
-  /*
-  render the index page. The username variable will be either null
-  or a string indicating the username.
-  */
-});
+
+var username = request.cookies.username;
+var userID = request.body.userID;
+var database = app.get('database');
+
+
+  cache.lrange("tweets", 0, -1, function(error, cacheResult) {
+    console.log("getting results for tweet cache")
+    if (cacheResult.length < 1) {
+      console.log("result not found, refresh from database");
+      /*
+      Check to see if a user is logged in. If they have a cookie called "username," assume it contains their username
+      */
+        // request to only display the tweet column from the tweets table, of the user (username) that is logged in.
+        database('tweets')
+        .join('users', 'tweets.userID', '=', 'users.id')
+        .select('tweet', 'avatar', 'timestamp', 'username')
+        .where('username', username)
+        .then(function(dbresult) {
+          console.log("refreshed results from db")
+          dbresult.reverse()
+          dbresult.forEach (function(item) {
+            cache.rpush("tweets", JSON.stringify(item))
+          })//closes forEach
+          response.render('logged-in', {username: username.toUpperCase(), tweets: dbresult});
+          console.log(dbresult);
+        })//closes then function result
+        //retrieve 'select' all tweets from the tweets table, of this user 
+    }//closes if statement
+    else {
+      cacheResult=cacheResult.map(function(item) {
+        return JSON.parse(item);
+      })//closes map
+      response.render('logged-in', {username: username, tweets: cacheResult});
+      console.log("show results from cache");
+      console.log(cacheResult);
+    }//closes 2nd else
+  })//closes lrange
+})//closes route
 
 //This route allows you to log out
 router.post('/logout', function(request,response){
@@ -203,7 +221,6 @@ router.post('/login', function(request, response) {
 
 /*route for storing/posting tweets*/
 // look at the loop in the my first blog template
-
 router.post('/twit', function(request, response) {
   //request.body refers to the vars in the form
   var userID = request.body.userID,
