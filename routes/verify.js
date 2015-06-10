@@ -6,7 +6,7 @@ var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
         user: 'riggs.ang@gmail.com',
-        pass: 'kraft423'
+        pass: 'PASSWORD'
     }
 });
  
@@ -14,13 +14,13 @@ var transporter = nodemailer.createTransport({
 // the same transporter object for all e-mails 
  
 // setup e-mail data with unicode symbols 
-function sendValidationEmail (nonce) {
+function sendValidationEmail (nonce, email) {
   var mailOptions = {
       from: 'Angela Riggs ✔ <riggs.ang@gmail.com>', // sender address 
       to: email, // list of receivers 
       subject: 'Thanks for Registering', // Subject line 
       text: 'Here is your code:', // plaintext body 
-      html: '<a href="/verify_email/' + nonce + '"> Click here!</a>' // html body 
+      html: '<a href="http://localhost:3000/verify_email/' + nonce + '"> Click here to complete your registration on Twit!</a>' // html body 
   };
 
  

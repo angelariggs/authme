@@ -6,6 +6,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var redis = require('redis');
+var client = redis.createClient();
+
+client.on('connect', function() {
+  console.log('connected');
+})
+
 
 var app = express();
 app.set('database', knex);

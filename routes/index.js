@@ -5,7 +5,7 @@ var redis = require('redis');
 var cache = redis.createClient();
 var uuid = require('node-uuid');
 var nodemailer = require('nodemailer');
-var sendEmail = require('./verify')
+var sendEmail = require('./verify');
 
 cache.del("tweets");
 
@@ -112,8 +112,7 @@ already have.
       password = request.body.password,
       password_confirm = request.body.password_confirm,
       email = request.body.email,
-      database = app.get('database'),
-      id;
+      database = app.get('database');
 
       database('users').where({'username': username}).then(function(array) {
         if (array.length > 0) {
@@ -130,12 +129,12 @@ already have.
             //       text: "Please click here to return to the registration page: "});
             //   } else {
               var nonce = uuid.v4();
-              var mailBody = sendEmail(nonce);
+              var mailBody = sendEmail(nonce, email);
               var userData = {'username': username, 'password': password, 'email': email};
-                redisClient.set(nonce, JSON.stringify(userData), function() {
+                cache.set(nonce, JSON.stringify(userData), function() {
                   response.render('verification',
                     {text: "Thank you for registering with Twit! Please check your email for a verification link."});
-                  }//closes redisClient.set
+                  });//closes cache.set
           } else {
 /*
 The user mistyped either their password or the confirmation, or both.
@@ -162,35 +161,34 @@ This uses a "promise" interface. It's similar to the callbacks we've
 worked with before. insert({}).then(function() {...}) is very similar
 to insert({}, function() {...});
 */
-router.get('/verify', function(request, response) {
 
-  database('users').insert({
-    username: username,
-    password: password,
-  })
-  .then(function() {
-    response.cookie('username', username)
-    response.redirect('/');
-  });
-
-})//closes router.get
       
 
 router.get('/verify_email/:nonce', function(request, response) {
-  redisClient.get(request.params.nonce, function(userId) {
-    redisClient.del(request.params.nonce, function() {
-      if (userId) {
-        new User({id: userId}).fetch(function(user) {
-            user.set('verifiedAt', new Date().toISOString());
-              // now log the user in, etc.
-            })//closes User.fetch
+
+  var database = app.get('database');
+
+  cache.get(request.params.nonce, function(error, userData) {
+    console.log(userData);
+    cache.del(request.params.nonce, function() {
+      if (userData) {
+        userData = JSON.parse(userData);
+          database('users').insert({
+            username: userData.username,
+            password: userData.password,
+            email: userData.email
+          })
+          .then(function() {
+            response.cookie('username', userData.username)
+            response.redirect('/');
+          });
       } else {
           response.render('mistake',
             {error: "That verification code is invalid!"});
         }//closes else
-    })//closes redisClient.del;
-  })//closes redisClient.get;
-})//closes router.get;
+    });//closes cache.del;
+  });//closes cache.get;
+});//closes router.get;
 
 
 /*
