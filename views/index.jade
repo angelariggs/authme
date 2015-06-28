@@ -1,35 +1,34 @@
 extends layout
 
-block content
-  h1.hello Hello! 
-  h1 Welcome to Twit&copy;
-  p Please log in, or create a new account.
+block content 
+  h1.hello Welcome to Twit&copy;
+  p.index-p Please log in, or create a new account.
+  div.forms
     div.login
       form(method="post" action="/login")
         h2 Log into an existing account
-          div
+          div.user-label
             label Username: 
-              input(type="text" name="username" placeholder="username")
-          div
+              input(type="text", name="username", style="font-family: 'Carrois Gothic'", placeholder="username")
+          div.pw-label
             label Password: 
               input(type="password" name="password")
-          div
-            input.submit(type="submit" value="Login!")
-
+          div.sub-btn
+            input.submit(type="submit" style="font-family: 'Carrois Gothic'" value="Login")
     div.register
       form(method="post" action="/register")
         h2 Register a new account
-          div
+          div.user-label
             label Username: 
-              input(type="text" name="username" placeholder="username")
-          div
+              input(type="text", name="username", style="font-family: 'Carrois Gothic'", placeholder="username")
+          div.pw-label
             label Password:
               input(type="password" name="password")
-          div
+          div.pw-confirm
             label Confirm Password: 
               input(type="password" name="password_confirm")
-          div
+          div.email
             label Email: 
-              input(type="text" name="email" placeholder="user@example.com")
-          div
-            input.submit(type="submit" value="Register account")
+              input(type="text", name="email", style="font-family: 'Carrois Gothic'", placeholder="user@example.com")
+          div.sub-btn
+            input.submit(type="submit" style="font-family: 'Carrois Gothic'" value="Register account")

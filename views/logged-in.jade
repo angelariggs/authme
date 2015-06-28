@@ -5,24 +5,24 @@ block content
     div.logout
       form(method='post' action='/logout')
         label.tired Tired of talking?  
-          input(type='submit', name='logout', value="Logout!")
+          input(type='submit', style="font-family: 'Slabo 27px'", name='logout', value="Logout!")
       div.others
         form(method="post", action="/displayTweet")
           label See other users:  
-            input(type="text", name="otherTwit", placeholder="Enter username")
+            input(type="text", style="font-family: 'Carrois Gothic'", name="otherTwit", placeholder="Enter username")
             label
-              input(type="submit", value="Submit")
+              input(type="submit", style="font-family: 'Slabo 27px'", background="black", value="Submit")
     div.welcome
       if username
-        h2 Welcome, #{ username }!
+        h2 Welcome, #{ username.toUpperCase() }!
   div
     form(method="post" action="/twit")
       div.makeTweet
         h2
-          label Express yo'self!  
-            input(type="text" name="twit" placeholder="Type a twit!")
+          label.express Express yo'self!  
+            input(type="text" name="twit" style="font-family: 'Carrois Gothic'", placeholder="Type a twit!")
             label.submit
-              input(type="submit" value="Say it!")
+              input(type="submit" style="font-family: 'Slabo 27px'", value="Say it!")
 
     each twit in tweets
       div.tweetBlock

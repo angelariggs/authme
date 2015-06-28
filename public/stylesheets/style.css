@@ -1,13 +1,11 @@
 /*
-22px / 48px for headline font-family: 'Stint Ultra Expanded', cursive;
-68px for headline font-family: 'Ultra', serif;
-15px body text: font-family: 'Slabo 13px', serif;  
+font-family: 'Carrois Gothic', sans-serif;
+font-family: 'Slabo 27px', serif;
 
-dark blue: #225378;
-med blue: #1695A3;
-light blue: #ACF0F2;
-greenish: #F3FFE2;
-orange: #EB7F00;
+blue: #1DABC6
+yellow: #E3C61F
+pink: #D23184
+green: #A8C520
 */
 
 /********************
@@ -16,74 +14,89 @@ Site-wide styling
 
 body {
   /*padding: 40px;*/
-  background: #F3FFE2 ;
-  margin-top: 0px;
+  background: #fff ;
 }
 
-h1 {
-  font-family: 'Stint Ultra Expanded', cursive;
-  font-size: 68px;
-  color: #EB7F00;
-}
-
-body p {
-  font-family: 'Stint Ultra Expanded', cursive;
-  color: #225378;
-  font-size: 20px;
+a {
+  text-decoration: none;
 }
 
 /********************
 Index.jade
 ********************/
-body h1.hello {
-  font-family: 'Ultra', serif;
-  font-size: 68px;
-  margin-left: 30px;
+.hello {
+  font-family: 'Carrois Gothic', sans-serif;
+  font-size: 3em;
+  color: #D23184;
+  background-color: #fff;
+  margin: 0 0;
+  padding-left: 0.75em;
+  padding-top: 0.75em;
 }
 
-body h1, p {
-  margin-left: 30px;
+.index-p {
+  font-family: 'Carrois Gothic', sans-serif;
+  font-size: 1.25em;
+  padding-left: 0.75em
 }
 
-body h2 {
-  font-family: 'Stint Ultra Expanded', cursive;
-  color: #1695A3;
-}
-
-body form h2 div label {
-  font-family: 'Slabo 13px', serif;
-  color: #225378;
-  font-size: 17px
-}
-
-body form h2 div input {
-  font-family: 'Slabo 13px', serif;
-  color: #225378;
-  font-size: 13px
-}
-
-body form h2 input.submit {
-  font-family: 'Slabo 13px', serif;
-  color: #225378;
-  font-size: 17px
+.forms {
+  margin-top: 2em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
 }
 
 .login {
   float: left;
-  margin-right: 30px;
-  border: 3px solid #EB7F00;
-  padding: 20px 25px;
-  margin-top: 20px;
-  margin-left: 30px;
+  display: inline-block;
+  /*border: 3px solid #D23184;*/
+  padding-left: 2em;
+  padding-right: 4em;
+}
+
+.login h2 {
+  font-family: 'Slabo 27px', serif;
+  color: #A8C520;
 }
 
 .register {
-  float: right;
-  margin-right: 100px;
-  border: 3px solid #EB7F00;
-  padding: 20px 25px;
-  margin-top: 20px;
+  float: left;
+  display: inline-block;
+  padding-left: 4em;
+  /*border-left: 3px solid black;*/
+  /*border: 3px solid #D23184;*/
 }
+
+.register h2 {
+  font-family: 'Slabo 27px', serif;
+  color: #E3C61F;
+}
+
+.user-label {
+  font-family: 'Slabo 27px', serif;
+  margin-top: 0.75em;
+}
+
+.pw-label {
+  font-family: 'Slabo 27px', serif;
+  margin-top: 0.75em;
+}
+
+.sub-btn {
+  margin-top: 0.75em;
+}
+
+.pw-confirm {
+  font-family: 'Slabo 27px', serif;
+  margin-top: 0.75em;
+}
+
+.email {
+  font-family: 'Slabo 27px', serif;
+  margin-top: 0.75em;
+}
+
 
 /********************
 Logged-in.jade
@@ -94,38 +107,42 @@ body {
 }
 
 .nav {
-  background-color: #ACF0F2;
+  background-color: #1DABC6;
+  font-family: 'Slabo 27px', serif;
+  color: #fff;
   top: 0;
+  min-height: 5em;
   padding: 20px 20px;
   max-width: 100%;
   margin-left: 0px;
-  border-bottom: 1.5px solid #225378;
+}
+
+.welcome {
+  font-size: 1.5em;
 }
 
 .logout {
   float: right;
   display: inline-block;
   font-family: 'Stint Ultra Expanded', cursive;
-  color: #225378;
   margin-bottom: 20px;
+}
+
+.tired {
+  font-family: 'Carrois Gothic', sans-serif;
+  color: #fff;
 }
 
 .others {
   float: right;
   display: inline-block;
-  font-family: 'Stint Ultra Expanded', cursive;
-  color: #225378;
+  color: #fff;
+  font-family: 'Carrois Gothic', sans-serif;
   margin-top: 20px;
 }
 
-.welcome h2 {
-  max-width: 60%;
-  color: #225378;
-}
-
-.makeTweet {
-  font-family: 'Stint Ultra Expanded', cursive;
-  color: #225378;
+.express {
+  font-family: 'Slabo 27px', serif;
   margin-bottom: 40px;
 }
 
@@ -134,7 +151,7 @@ body {
   margin: 0 10px;
 }
 
-body div form div.makeTweet {
+div.makeTweet {
   margin-left: 20px;
   margin-right: 20px;
 }
