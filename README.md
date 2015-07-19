@@ -1,2 +1,10 @@
-# authme
-A site you can log into and out of
+#authme
+
+#Welcome to Twit
+* A Twitter clone web app
+
+#Dev Tools:
+* Node
+* Express server
+* Redis for caching
+* PostGreSQL

@@ -8,10 +8,7 @@ var transporter = nodemailer.createTransport({
         user: 'riggs.ang@gmail.com',
         pass: 'PASSWORD'
     }
-});
- 
-// NB! No need to recreate the transporter object. You can use 
-// the same transporter object for all e-mails 
+}); 
  
 // setup e-mail data with unicode symbols 
 function sendValidationEmail (nonce, email) {

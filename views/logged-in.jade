@@ -28,7 +28,7 @@ block content
       div.tweetBlock
         img.avatar(src= twit.avatar)
         div.username
-          span= username
+          span= username.toUpperCase()
             div
               span.tweetText= twit.tweet  
               span= twit.userID 

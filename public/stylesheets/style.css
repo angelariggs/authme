@@ -111,10 +111,11 @@ body {
   font-family: 'Slabo 27px', serif;
   color: #fff;
   top: 0;
-  min-height: 5em;
+  max-height: 5em;
   padding: 20px 20px;
-  max-width: 100%;
+  min-width: 100%;
   margin-left: 0px;
+  /*position: fixed;*/
 }
 
 .welcome {
@@ -162,11 +163,11 @@ div.makeTweet {
 }
 
 .tweetBlock {
-  border: 3px solid #EB7F00;
+  border: 3px solid #D23184;
   border-radius: 10px;
   height: 80px;
-  padding: 5px;
-  margin: 25px 0;
+  padding: 0.75em;
+  margin: 25px 40px;
 }
 
 body div div.tweetBlock {
@@ -190,26 +191,63 @@ body div div.tweetBlock {
 }
 
 .username {
-  font-family: 'Slabo 13px', serif;
+  font-family: 'Carrois Gothic', serif;
+  font-size: 1.2em;
   padding-top: 8px;
 }
 
 .username span {
-  color: #225378;
+  color: #A8C520;
 }
 
 .tweetText {
-  font-family: 'Slabo 13px', serif;
+  font-family: 'Slabo 27px', serif;
 }
 
 span.tweetText {
-  color: #1695A3;
+  color: #1DABC6;
 }
 
 .timestamp {
-  font-family: 'Slabo 13px', serif;
+  font-family: 'Slabo 27px', serif;
 }
 
 .timestamp span {
-  color: #225378;
+  color: #A8C520;
 }
+
+/********************
+Mistake.jade
+********************/
+
+.mistake {
+  background-color: #1DABC6;
+}
+
+.sorry {
+  font-family: 'Carrois Gothic', sans-serif;
+  text-align: center;
+  color: #fff;
+}
+
+.pw-error {
+  font-family: 'Carrois Gothic', sans-serif;
+  text-align: center;
+  color: #fff;
+}
+
+.return {
+  font-family: 'Carrois Gothic', sans-serif;
+  text-align: center;
+  color: #fff;
+}
+
+.return a {
+  color: #A8C520;
+}
+
+.return a:hover {
+  color: #E3C61F;
+}
+
+

@@ -1,10 +1,10 @@
 extends layout
 
 block content
-
-  h1.sorry We're sorry! Something appears to have gone wrong.
-    if error
-      h3= error
-    if text
-      p= text 
-        a(href= './') Return
+  body.mistake
+    h1.sorry We're sorry! Something appears to have gone a bit wibbly-wobbly.
+      if error
+        h2.pw-error= error
+      if text
+        h2.return= text 
+          a(href= './') Return to log-in page.
